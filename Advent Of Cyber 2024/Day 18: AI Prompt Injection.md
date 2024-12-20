@@ -1,4 +1,4 @@
-# AOC Day 17: Exploiting WareWise AI System using Prompt Injection
+# AOC Day 18: Exploiting WareWise AI System using Prompt Injection
 
 ## Storyline:
 - **Wareville Developers** released a "health checker" service and envisioned WareWise, an intelligent assistant for Wareville systems.
