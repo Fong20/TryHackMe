@@ -1,10 +1,8 @@
 
-### Notes on "Wireshark and C2 Traffic Analysis with McSkidy"
-
+# AOC Day 20: Network Analysis using Wireshark
 ---
 
 #### **Introduction**
-- **Main Characters**: Glitch (cyber-agent), McSkidy (investigator), Mayor Malware (antagonist).
 - **Scenario**: Investigation of a compromised system using a PCAP file from a victim's machine.
 - **Tools Used**: Wireshark and CyberChef.
 
