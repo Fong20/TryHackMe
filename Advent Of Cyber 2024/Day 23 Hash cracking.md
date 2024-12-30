@@ -1,9 +1,5 @@
 
-## **Learning Objectives**
-- Understanding hash functions and hash values.
-- Techniques for saving hashed passwords.
-- Methods for cracking hashes.
-- Approaches for accessing password-protected documents.
+## AOC Day 23: Hash cracking
 
 ---
 
