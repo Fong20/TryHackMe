@@ -1,5 +1,5 @@
 
-# MQTT and IoT Security: Notes and Instructions
+# AOC Day 24: MQTT Protocols
 
 ## **Learning Objectives**
 1. Understand the MQTT protocol basics.
