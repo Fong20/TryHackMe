@@ -1,0 +1,74 @@
+
+# OSI Model Overview
+
+The **OSI Model (Open Systems Interconnection Model)** is a foundational framework used in networking. It defines how devices send, receive, and interpret data in a uniform manner, allowing devices with different functions and designs to communicate effectively.
+
+## Key Concepts
+- **Encapsulation**: Data gains specific pieces of information as it travels through each layer.
+- **Seven Layers**: Each layer has distinct responsibilities, arranged from Layer 7 (Application) to Layer 1 (Physical).
+
+---
+
+## OSI Model Layers
+
+### Layer 1: Physical Layer
+- Focuses on hardware components used in networking.
+- Data transfer occurs via electrical signals in binary form (1's and 0's).
+- Examples: Ethernet cables and physical connections.
+
+### Layer 2: Data Link Layer
+- Responsible for **physical addressing** and formatting data for transmission.
+- Utilizes **MAC addresses** to identify endpoints.
+  - MAC addresses are unique, set by the manufacturer, and can be spoofed.
+- Includes **Network Interface Cards (NICs)**.
+- Prepares data for physical transmission.
+
+### Layer 3: Network Layer
+- Handles **routing** and reassembly of data packets.
+- Determines the optimal path based on:
+  - Shortest path.
+  - Reliability of the route.
+  - Speed of the physical connection (e.g., copper vs. fiber).
+- Utilizes **IP addresses** for addressing.
+- Layer 3 devices: Routers.
+
+### Layer 4: Transport Layer
+- Manages data transmission using **TCP** or **UDP** protocols.
+
+#### TCP (Transmission Control Protocol)
+- Ensures reliable, accurate data transfer.
+- Features:
+  - Error checking and synchronization.
+  - Reliable but slower due to extensive processing.
+- Use cases: File sharing, email, and web browsing.
+
+#### UDP (User Datagram Protocol)
+- Prioritizes speed over reliability.
+- Features:
+  - No error checking or synchronization.
+  - Flexible for developers but may lose data.
+- Use cases: Video streaming and device discovery (e.g., ARP, DHCP).
+
+### Layer 5: Session Layer
+- Establishes and maintains connections between devices.
+- Manages sessions by:
+  - Closing inactive sessions.
+  - Using checkpoints to optimize data retransmission.
+- Ensures data stays within its session.
+
+### Layer 6: Presentation Layer
+- Standardizes data formats for interoperability between different software.
+- Handles data encryption (e.g., HTTPS).
+- Acts as a translator for the application layer.
+
+### Layer 7: Application Layer
+- The layer closest to the user, providing a GUI to interact with data.
+- Implements protocols like **DNS** for domain-to-IP translation.
+- Examples: Email clients, browsers, and file transfer tools.
+
+---
+
+## Protocol Highlights
+- **TCP vs UDP**: Reliability vs speed.
+- **Security**: Encryption occurs at the presentation layer.
+- **Application Layer Protocols**: Examples include DNS and HTTPS.

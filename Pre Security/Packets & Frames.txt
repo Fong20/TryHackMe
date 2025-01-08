@@ -1,0 +1,105 @@
+
+# Networking Basics: Packets, Frames, and Protocols
+
+## **1. Packets vs. Frames**
+- **Frames**:  
+  - Layer 2 (Data Link Layer) of OSI Model.  
+  - Do not contain IP addresses.  
+  - Example: Inner envelope in encapsulation.
+
+- **Packets**:  
+  - Layer 3 (Network Layer) of OSI Model.  
+  - Contain IP addresses (Source & Destination).  
+  - Sent in small, efficient pieces to avoid bottlenecks.  
+  - Example: Outer envelope in encapsulation.
+
+- **Encapsulation**: Wrapping data with necessary headers as it moves through OSI layers.  
+
+---
+
+## **2. TCP/IP Protocol**
+- **Layers**:  
+  - **Application**  
+  - **Transport**  
+  - **Internet**  
+  - **Network Interface**  
+
+- **Encapsulation/Decapsulation**:  
+  - Adding/removing headers as data traverses layers.  
+
+- **Connection-based**:  
+  - Requires connection establishment before data transfer.  
+
+### **TCP Advantages vs. Disadvantages**
+| **Advantages** | **Disadvantages** |
+|----------------|-------------------|
+| Guarantees data integrity | Requires reliable connections |
+| Synchronizes devices to prevent misordering | Can bottleneck devices on slow connections |
+| Reliable, ensures all data is sent | Slower due to added processes |
+
+---
+
+### **TCP Headers**
+| **Header**         | **Description**                                                                 |
+|---------------------|---------------------------------------------------------------------------------|
+| **Source Port**     | Random port from sender (0-65535).                                              |
+| **Destination Port**| Fixed port for application/service on the receiver (e.g., port 80 for HTTP).    |
+| **Source IP**       | Sender's IP address.                                                           |
+| **Destination IP**  | Receiver's IP address.                                                         |
+| **Sequence Number** | Initial sequence number, used to organize packets.                             |
+| **Acknowledgement** | Next expected sequence number (Sequence Number + 1).                          |
+| **Checksum**        | Integrity check value, ensures no corruption.                                  |
+| **Data**            | The actual content being sent.                                                 |
+| **Flag**            | Indicates packet behavior during handshake or connection (e.g., SYN, ACK).     |
+
+---
+
+## **3. Three-way Handshake**
+- Establishing connection steps:  
+  1. **SYN**: Client sends initial sequence number (ISN).  
+  2. **SYN/ACK**: Server responds with its ISN and acknowledges the client's ISN.  
+  3. **ACK**: Client acknowledges the server's ISN.  
+  4. **DATA**: Data transfer begins.  
+  5. **FIN**: Proper closure of connection.  
+
+- **RST**: Used to terminate abruptly if errors occur.
+
+---
+
+## **4. UDP (User Datagram Protocol)**
+- **Stateless**:  
+  - No connection establishment.  
+  - No acknowledgments.  
+
+- **Advantages vs. Disadvantages**:
+| **Advantages**         | **Disadvantages**                  |
+|-------------------------|------------------------------------|
+| Faster than TCP         | No guarantee of data delivery     |
+| Flexible for developers | No safeguards or integrity checks |
+| No reserved connection  | Unstable connections cause issues |
+
+### **UDP Headers**
+| **Header**           | **Description**                                                        |
+|-----------------------|------------------------------------------------------------------------|
+| **Time to Live (TTL)**| Expiry timer to prevent stuck packets.                                |
+| **Source Address**    | Sender's IP address.                                                  |
+| **Destination Address**| Receiver's IP address.                                               |
+| **Source Port**       | Random sender port (0-65535).                                         |
+| **Destination Port**  | Fixed receiver port (e.g., 80 for HTTP).                              |
+| **Data**              | Content being sent.                                                  |
+
+---
+
+## **5. Ports and Protocols**
+- **Ports**:  
+  - Numerical range: **0-65535**.  
+  - Standard/common ports: **0-1024**.  
+  - Examples:  
+    - **21**: FTP (File Transfer Protocol).  
+    - **22**: SSH (Secure Shell).  
+    - **80**: HTTP (Web traffic).  
+    - **443**: HTTPS (Secure web traffic).  
+    - **445**: SMB (File & printer sharing).  
+    - **3389**: RDP (Remote Desktop Protocol).
+
+- **Custom Porting**: Applications may use non-standard ports (e.g., 8080 for HTTP).
