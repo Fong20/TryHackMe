@@ -1,0 +1,94 @@
+
+# Windows Fundamentals Part 2
+
+## System Configuration Utility (MSConfig)
+The **System Configuration utility** is an advanced troubleshooting tool used to diagnose startup issues. It requires **local administrator rights** to access.
+
+### Launching MSConfig
+- Can be opened from the **Start Menu**.
+
+### Tabs Overview
+The utility has five tabs:
+1. **General**: Select which devices and services load on boot (Normal, Diagnostic, or Selective startup).
+2. **Boot**: Configure various operating system boot options.
+3. **Services**: Lists all services (running or stopped) and allows management.
+4. **Startup**: Redirects to Task Manager to manage startup items.
+5. **Tools**: Launches various system utilities with descriptions for each.
+
+---
+
+# Tools in MSConfig
+
+## User Account Control (UAC)
+- Allows changing UAC settings using a slider.
+- **Not recommended** to disable.
+
+## Computer Management (`compmgmt.msc`)
+### System Tools
+1. **Task Scheduler**: Automates tasks like running scripts or programs at specific times.
+   - Create tasks via "Create Basic Task" in the Actions pane.
+2. **Event Viewer**: Tracks system events, useful for diagnosing problems.
+   - Logs categorized as **Windows Logs** (Application, Security, etc.).
+   - Displays events in a tree (left pane), summaries (middle pane), and actions (right pane).
+3. **Shared Folders**: Shows shared resources and connected users.
+4. **Local Users and Groups (`lusrmgr.msc`)**: Manage user accounts and groups.
+5. **Performance Monitor (`perfmon`)**: View performance data in real-time or logs for troubleshooting.
+6. **Device Manager**: Manage and configure hardware components.
+
+### Storage
+1. **Disk Management**: Perform storage tasks like partitioning, assigning drive letters, etc.
+
+### Services and Applications
+1. **Services**: Manage services running in the background.
+2. **WMI Control**: Configure Windows Management Instrumentation.
+   - Use PowerShell for WMI tasks (as `WMIC` is deprecated).
+
+---
+
+# Additional Tools
+
+## System Information (`msinfo32`)
+- Gathers detailed system info:
+  - **Hardware Resources**
+  - **Components**: View hardware details like Display and Input.
+  - **Software Environment**: See installed software, environment variables, and network connections.
+- Environment Variables:
+  - Stores OS environment details (e.g., `WINDIR` for the Windows directory).
+
+## Resource Monitor (`resmon`)
+- Displays real-time performance data for:
+  - **CPU**
+  - **Memory**
+  - **Disk**
+  - **Network**
+- Allows advanced filtering and troubleshooting (e.g., resolving file locks).
+
+## Command Prompt (`cmd`)
+### Common Commands
+- `hostname`: Shows computer name.
+- `whoami`: Displays logged-in user.
+- `ipconfig`: Shows network settings (`ipconfig /?` for help).
+- `netstat`: Displays TCP/IP network connections and stats.
+  - Use parameters like `-a`, `-b`, or `-e` for expanded output.
+- `net`: Manages network resources.
+  - Use `net help` for sub-commands like `user`, `localgroup`, `share`, etc.
+
+---
+
+# Windows Registry (`regedit`)
+- A hierarchical database storing system, user, and application configuration.
+- Key areas:
+  - **User profiles**
+  - **Installed applications**
+  - **System hardware settings**
+- **Warning**: Editing the registry is for advanced users. Mistakes can affect system operation.
+
+---
+
+# Key Takeaways
+1. **MSConfig** helps diagnose and manage startup and services issues.
+2. Tools like **Task Scheduler**, **Event Viewer**, and **Performance Monitor** assist in advanced system management.
+3. **Command Prompt** remains essential for troubleshooting and scripting.
+4. The **Windows Registry** is critical for system configuration but requires caution when editing.
+
+Refer to Microsoft documentation for more details on each tool.

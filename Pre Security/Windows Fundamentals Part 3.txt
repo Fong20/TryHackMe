@@ -1,0 +1,96 @@
+
+# Windows Fundamentals Part 3 
+
+## Overview
+- **Windows Update**: A service by Microsoft providing security updates, feature enhancements, and patches for Windows OS and Microsoft products like Microsoft Defender.
+- **Patch Tuesday**: Updates are released on the 2nd Tuesday of each month, though critical updates may be released anytime.
+- **Accessing Windows Update**:
+  - Through **Settings**.
+  - Using `control /name Microsoft.WindowsUpdate` in the **Run** dialog or CMD.
+
+## Virtual Machine Notes
+- **Managed Settings**: Indicates updates are controlled by an organization.
+- **No Updates Available**: The VM lacks internet access to retrieve updates.
+
+## Update Behavior
+- Updates in **Windows 10** are mandatory and cannot be indefinitely postponed.
+- Scheduled restarts can be set after updates.
+
+## Status Icons in Windows Security
+- **Green**: Device is protected; no actions required.
+- **Yellow**: Safety recommendations.
+- **Red**: Immediate attention needed.
+
+---
+
+## Virus & Threat Protection
+
+### Features
+1. **Current Threats**:
+   - **Quick Scan**: Scans common threat locations.
+   - **Full Scan**: Comprehensive scan, may take over an hour.
+   - **Custom Scan**: Specific files/locations.
+   - **Threat History**:
+     - **Last Scan**: Auto-scan details.
+     - **Quarantined Threats**: Isolated and blocked threats.
+     - **Allowed Threats**: User-allowed threats (*Warning*: Allow only if certain).
+
+2. **Virus & Threat Protection Settings**:
+   - **Real-time Protection**: Blocks malware installation/running.
+   - **Cloud-delivered Protection**: Faster threat data access.
+   - **Automatic Sample Submission**: Sends samples to Microsoft.
+   - **Controlled Folder Access**: Protects against unauthorized changes.
+   - **Exclusions**: Items excluded from scans (*Warning*: Use cautiously).
+   - **Notifications**: Alerts on device health and security.
+
+3. **Virus & Threat Protection Updates**:
+   - Check for updates manually for antivirus definitions.
+
+4. **Ransomware Protection**:
+   - Requires **Real-time Protection** to enable Controlled Folder Access.
+   - On-demand scans available via context menu.
+
+---
+
+## Firewall & Network Protection
+
+### Firewall Basics
+- Acts as a security guard controlling network traffic through ports.
+- **Profiles**:
+  - **Domain**: Authenticates to a domain controller.
+  - **Private**: For trusted home networks.
+  - **Public**: For untrusted networks (e.g., coffee shops).
+- **Configuration Options**:
+  - Enable/disable firewalls.
+  - Block all incoming connections (*Advanced users only*).
+- **App Settings**: Allow specific apps through the firewall.
+
+### Command and Tools
+- Open Windows Defender Firewall: `WF.msc`.
+
+---
+
+## Additional Features
+
+### Microsoft Defender SmartScreen
+- Protects against phishing/malware websites and apps.
+- Scans unrecognized apps/files.
+
+### Exploit Protection
+- Built-in protection against device attacks.
+- **Core Isolation**:
+  - **Memory Integrity**: Secures high-security processes (*Leave default settings*).
+
+### Trusted Platform Module (TPM)
+- **TPM**: Hardware-based cryptographic processor for enhanced security.
+- **BitLocker**:
+  - Encrypts drives for data protection.
+  - Works best with TPM v1.2 or later.
+
+### Volume Shadow Copy Service (VSS)
+- Creates snapshots of data for backups.
+- Stored in `System Volume Information` folder.
+- **Tasks**:
+  - Create/restore points.
+  - Configure/delete restore settings.
+- **Security Concern**: Malware can target these files; offline backups recommended.

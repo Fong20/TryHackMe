@@ -1,0 +1,69 @@
+
+# Windows Fundamentals Part 1
+
+## File Systems in Windows
+
+1. **NTFS (New Technology File System):**
+   - Default file system for modern Windows versions.
+   - **Features:**
+     - Journaling: Automatically repairs files/folders after failures using log files.
+     - Supports files larger than 4GB.
+     - Folder/file permissions.
+     - Compression and encryption (via EFS).
+   - **Permissions:**
+     - Full control, Modify, Read & Execute, List folder contents, Read, Write.
+   - **Alternate Data Streams (ADS):**
+     - Allows files to have multiple data streams.
+     - Often used for metadata; can hide data (used by malware).
+     - Can be viewed using PowerShell or third-party tools.
+
+2. **FAT16/FAT32 and HPFS:**
+   - **FAT:** Still used in USB devices, MicroSD cards.
+   - **HPFS:** A historical predecessor of NTFS.
+
+## User Accounts in Windows
+
+1. **Types of Accounts:**
+   - **Administrator:** 
+     - Full system-level control.
+     - Add/remove users, modify system settings, and install software.
+   - **Standard User:** 
+     - Limited to personal files/folders.
+     - Cannot perform system-level changes.
+
+2. **User Profiles:**
+   - Created on first login under `C:\Users\<username>`.
+   - Includes default folders like Desktop, Documents, Downloads.
+
+3. **Managing Accounts:**
+   - **Local User and Group Management:**
+     - Access via `lusrmgr.msc`.
+     - Shows Users and Groups with their descriptions and permissions.
+     - Users inherit permissions of groups they are part of.
+   - **Other User Management:**
+     - Add users via Settings > Other users or `lusrmgr.msc`.
+
+4. **Environment Variables:**
+   - `%windir%`: Path to the Windows folder.
+   - Useful for identifying OS locations regardless of drive/folder.
+
+## Security Features
+
+1. **User Account Control (UAC):**
+   - Protects against unauthorized system changes by standard or malicious software.
+   - Prompts for admin credentials for elevated actions (e.g., installing software).
+   - Shield icon on program icons indicates UAC protection.
+   - Does not apply to the built-in Administrator account by default.
+
+2. **System32 Folder:**
+   - Contains critical OS files.
+   - Modifications can render the system inoperable.
+
+3. **Best Practices:**
+   - Use Standard User accounts for daily tasks to minimize risks.
+   - Limit use of Administrator privileges to essential tasks.
+
+## Key Commands and Tools
+- **Check File System:** Right-click on the C:\ drive > Properties.
+- **Manage Permissions:** Right-click file/folder > Properties > Security tab.
+- **Run Dialog Box:** Press `Win + R` to access `lusrmgr.msc` or other system tools.
