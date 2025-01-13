@@ -1,5 +1,5 @@
 
-# Introduction to Command Line Interface (CLI)
+# Windows Command Line Interface (CLI)
 
 ## GUI vs CLI
 - **GUIs** are intuitive and user-friendly.
