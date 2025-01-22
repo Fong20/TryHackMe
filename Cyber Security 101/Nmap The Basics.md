@@ -1,17 +1,27 @@
 
 # Nmap The Basics 
 
-## Target Specification
+## Overview:
+Nmap is an open-source flexible network scanner that can be adapted to various scenarios and setups such as discover live hosts on a network and execute port scanning.
+
+
+
+## Discovering Live Hosts
+- For directly connected networks, Nmap sends ARP requests.
+- For remote networks, ICMP or TCP/UDP requests are used.
+
+###  Target Specification
 - **IP Range**: Specify IPs like `192.168.0.1-10`.
 - **Subnet**: Use CIDR notation, e.g., `192.168.0.1/24`.
 - **Hostname**: Use a domain name like `example.thm`.
 
-## Discovering Live Hosts
+Once we have determine the target to scan, we can use the following command to scan the network
 - **Ping Scan (-sn)**: Determines active hosts without probing services.
-  - Example: `nmap -sn 192.168.66.0/24`
-  - For directly connected networks, Nmap sends ARP requests.
-  - For remote networks, ICMP or TCP/UDP requests are used.
-- **List Targets (-sL)**: Lists targets without scanning.
+- Example: `nmap -sn 192.168.66.0/24`
+
+### Listing targets to be scanned without scanning
+-  Nmap offers an option to list targets to be scanned without actually scanning them by using the option `-sL`. This option helps confirm the targets before running the actual scan.
+-  Example, `nmap -sL 192.168.0.1/24` will list the 256 targets that will be scanned. 
 
 ## Port Scanning
 - **TCP Connect Scan (-sT)**: Completes the full three-way handshake.
@@ -49,7 +59,8 @@
 ## Notes on Permissions
 - Running as **root** or with **sudo** enables advanced scan types like SYN scans. Non-root users default to TCP connect scans.
 
-## Command Reference Summary
+## Summary of important Nmap commands
+
 | Option                          | Description                                    |
 |---------------------------------|------------------------------------------------|
 | -sL                             | List targets without scanning                 |
