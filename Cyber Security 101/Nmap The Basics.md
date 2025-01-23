@@ -4,20 +4,30 @@
 ## Overview:
 Nmap is an open-source flexible network scanner that can be adapted to various scenarios and setups such as discover live hosts on a network and execute port scanning.
 
+Note: Nmap is prefarably run as root `sudo` to prevent any restriction with Nmap’s abilities. Running Nmap as a local (non-root) user would limit us to fundamental types of scans such as ICMP echo and TCP connect scans
 
-
-## Discovering Live Hosts
-- For directly connected networks, Nmap sends ARP requests.
-- For remote networks, ICMP or TCP/UDP requests are used.
-
-###  Target Specification
-- **IP Range**: Specify IPs like `192.168.0.1-10`.
-- **Subnet**: Use CIDR notation, e.g., `192.168.0.1/24`.
+##  Target Specification
+We need to identify the target to be scanned to discover live hosts in a network. There are three ways to discover live hosts:
+- **IP Range**: Scan all the IP addresses in a certain range, this is done by using `-`  Eg:`192.168.0.1-10` scans all the IP addresses from 192.168.0.1 to 192.168.0.10.
+- **Subnet**: Scan all the IP addresses in a certain subnet, this is done by using `/` Eg: `192.168.0.1/24` would be equivalent to 192.168.0.0-255
 - **Hostname**: Use a domain name like `example.thm`.
 
-Once we have determine the target to scan, we can use the following command to scan the network
-- **Ping Scan (-sn)**: Determines active hosts without probing services.
-- Example: `nmap -sn 192.168.66.0/24`
+## Discovering Live Hosts
+- Nmap can be used to discover live hosts in a local network or remote network by using ping scan through the command `nmap -sn`. 
+- Local network refers to the network we are directly connected to, such as an Ethernet or WiFi network. For directly connected networks (local network), Nmap sends ARP requests. When a device responds to the ARP request, Nmap labels it with “Host is up”.
+- Remote network means that there consists of at least one router which separates our system from this network. For remote networks, ICMP or TCP/UDP requests are used by Nmap.
+
+**Example: Scanning local network**
+
+In the below diagram, `nmap -sn 192.168.66.0/24` scans the 192.168.66.0/24 network.
+
+![image](https://github.com/user-attachments/assets/b6483073-1dd8-459f-9944-03074e3fb610)
+
+Because we are scanning the local network, where we are connected via Ethernet or WiFi, we can look up the MAC addresses of the devices. Consequently, we can figure out the network card vendors, which is beneficial information as it can help us guess the type of target device(s).
+
+**Example: Scanning remote network**
+
+![image](https://github.com/user-attachments/assets/0d107cf0-3d7e-4ff6-8bb1-2f17cf1de051)
 
 ### Listing targets to be scanned without scanning
 -  Nmap offers an option to list targets to be scanned without actually scanning them by using the option `-sL`. This option helps confirm the targets before running the actual scan.
