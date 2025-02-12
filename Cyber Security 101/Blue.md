@@ -1,7 +1,23 @@
 # Blue
-Summary of Blue room: Exploitation of machine using MS17-010 Eternal Blue Exploit
+Summary of Blue room: Exploitation of Windows machine using MS17-010 Eternal Blue Exploit
 
 ## Recon phase
+The room starts off by asking for the number of ports which are open with a port number of less than 1000. To find the answer, we use the following Nmap command to scan for available ports
+
+![image](https://github.com/user-attachments/assets/fa197e7a-a273-4d6c-9e30-fd22d4fac375)
+
+Next, the question prompts us to identify the vulnerability which the targeted machine is exposed to. To solve this question, we use the following nmap command, `nmap -sV --script vuln -v` followed by the ip address of the virtual machine.
+
+**Nmap command breakdown:**
+- `-sV` This scans for the versions of discovered services.
+- `--script` Scripting Engine.
+- `vuln` Investigate vulnerabilities or exploit vulnerable services.
+
+![image](https://github.com/user-attachments/assets/de67172c-079c-4a00-b834-acaaa2fc7555)
+
+The scan revealed that the targeted machine is vulnerable to the MS17-010 vulnerability
+
+![image](https://github.com/user-attachments/assets/37a4416c-0196-4fb7-8042-bdfc99e7a14c)
 
 ## Gain access
 
