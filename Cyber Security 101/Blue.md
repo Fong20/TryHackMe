@@ -61,12 +61,13 @@ A shell will be granted if the exploit is successful as shown below:
 ![image](https://github.com/user-attachments/assets/3603c027-5f7c-4016-b606-545d9ccb3f8e)
 
 ## Escalate phase
+Once we have obtained access to the targeted machine, we shall escalate priviledges to gain further access to the system.
+
 Background the shell
 
 ![image](https://github.com/user-attachments/assets/2c9a4fc8-a76b-402f-bf78-196187d658d8)
 
-To perform more features on the targeted machine, we need to convert the shell to meterpreter shell in metasploit. We can use the following command `post/multi/manage/shell_to_meterpreter`
-
+The question states that to perform more features on the targeted machine, we need to convert the shell to meterpreter shell in metasploit. We can do this by using the following command `post/multi/manage/shell_to_meterpreter`
 
 ![image](https://github.com/user-attachments/assets/70342ff5-baa1-44cf-af27-ad4f1135e982)
 
@@ -78,37 +79,48 @@ In this case, the shell which needs to be converted to meterpreter session has a
 
 ![image](https://github.com/user-attachments/assets/0a0efb6d-edb2-4db1-9872-7f52bf3ec614)
 
+Once the session is set, we can use the command `show options` to check if the session is set correctly
+
 ![image](https://github.com/user-attachments/assets/6a0e09d2-aa96-4a7c-9dce-1c8715bb3c1e)
+
+Once the session is set correctly, we can then run the tool to convert the shell to meterpreter shell 
 
 ![image](https://github.com/user-attachments/assets/97feb3f5-1a59-4175-9dfb-acf044d7df47)
 
+Upon entering the command 'sessions', we can see that a meterpreter shell has been successful established with a session id of 2
+
 ![image](https://github.com/user-attachments/assets/8bf03eff-8048-4f6d-a27e-fa580c44679a)
+
+We can then use the meterpreter shell for further exploitation of the target machine by using the command `sessions` followed by the session id. In this case, we need to enter `sessions 2`
 
 ![image](https://github.com/user-attachments/assets/c2a9a798-3b49-4ffc-b403-cbfad84f2661)
 
-Run getsystem to verify that we have escalated to NT AUTHORITY\SYSTEM.
+Once we are in the meterpreter shell, we can the following command, `getsystem` to verify that we have escalated to NT AUTHORITY\SYSTEM.
 
 ![image](https://github.com/user-attachments/assets/80389fe7-4ef8-435a-845a-a1397c9abb7b)
+
 
 ![image](https://github.com/user-attachments/assets/8a7c2c26-c05a-40be-bfb5-9f7e0b44eedd)
 
 
 ## Cracking phase
+The room proceeds with the cracking phase where we are required to crack some password hashes 
+
+We can start off by using the command `hashdump` to obtain the hashes of all user profiles in the target device
 
 ![image](https://github.com/user-attachments/assets/b7a1f946-2d94-402e-aa77-95e7b837f87e)
 
-Copy the hash to the text file named hash.txt using nano
+Since the question requires us to crack the password for the non-default user, which is Jon, we shall copy jon's user profile hash to a text file using nano text editior. The text file shall be named hash.txt.
 
 ![image](https://github.com/user-attachments/assets/005dfd78-d54e-4ef8-b034-751eca1c8b23)
 
+Once we have copied the hash to the text file, we shall use john the ripper to crack the hash by comparing the hash of hash.txt to a wordlist file named rockyou.txt. If one of the passwords in the rockyou.txt file have an identical hash as the hash in the hash.txt file upon conversion, it would be the password.
+
 ![image](https://github.com/user-attachments/assets/5d27a3fc-8e1c-4e69-a295-fe51da1210b7)
 
+In this case, john the ripper managed to find an identical hash in the rockyou.txt file which is **alqfna22**
+
 ![image](https://github.com/user-attachments/assets/cea864c7-7465-4bd3-8750-d861d577f165)
-
-
-
-
-
 
 ## Finding flags
 ### Flag 1
