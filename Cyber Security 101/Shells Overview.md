@@ -1,4 +1,4 @@
-# Cyber Security Shells
+# Shells Overview
 
 ## What is a Shell?
 A shell is software that allows a user to interact with an OS, commonly a command-line interface. In cybersecurity, it refers to a session used by attackers to remotely control a compromised system.
