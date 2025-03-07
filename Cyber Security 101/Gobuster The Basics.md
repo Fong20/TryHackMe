@@ -1,4 +1,4 @@
-### Gobuster Overview
+# Gobuster: The Basics
 
 Gobuster is a directory, subdomain, and virtual host brute-forcing tool, commonly included in penetration testing distributions like Kali Linux.
 
