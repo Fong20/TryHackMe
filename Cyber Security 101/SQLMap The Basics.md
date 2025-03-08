@@ -1,4 +1,4 @@
-# SQL Injection Overview
+# SQLMap: The Basics
 
 ## Introduction
 SQL injection is a common vulnerability where attackers manipulate SQL queries to gain unauthorized access to databases.
