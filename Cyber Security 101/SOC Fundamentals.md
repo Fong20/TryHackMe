@@ -1,4 +1,4 @@
-### Notes on Security Operations Center (SOC)
+# SOC Fundamentals
 
 #### 1. Introduction
 - Technology improves efficiency but increases security responsibilities.
