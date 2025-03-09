@@ -1,4 +1,4 @@
-# Cyber Security Incidents & Incident Response
+# Incident Response Fundamentals
 
 ## Introduction
 - Just like securing a home with guards and CCTV cameras, digital assets need protection.
