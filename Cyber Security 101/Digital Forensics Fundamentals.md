@@ -1,4 +1,4 @@
-Digital Forensics Notes
+# Digital Forensics Fundamentals
 
 - **Digital Forensics** investigates cyber crimes using methods and tools to analyze digital evidence.
 - **NIST Digital Forensics Process (Four Phases):**
