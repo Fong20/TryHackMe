@@ -1,4 +1,4 @@
-# Log Analysis and Investigation
+# Logs Fundamentals
 
 ## Introduction
 - Attackers leave minimal traces to avoid detection.
