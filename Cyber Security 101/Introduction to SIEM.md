@@ -36,6 +36,23 @@ Logs generated when network communication occurs, e.g.:
   - File accessed via FTP.
   - Web traffic analysis.
 
+### Windows Machine Logs
+
+Windows records every event that can be viewed through the Event Viewer utility. It assigns a unique ID to each type of log activity, making it easy for the analyst to examine and keep track of. To view events in a Windows environment, type Event Viewer in the search bar, and it takes you to the tool where different logs are stored and can be viewed, as shown below. These logs from all windows endpoints are forwarded to the SIEM solution for monitoring and better visibility.
+
+### Linux Workstation
+
+Linux OS stores all the related logs, such as events, errors, warnings, etc. Which are then ingested into SIEM for continuous monitoring. Some of the common locations where Linux store logs are:
+
+- /var/log/httpd : Contains HTTP Request  / Response and error logs.
+- /var/log/cron   : Events related to cron jobs are stored in this location.
+- /var/log/auth.log and /var/log/secure : Stores authentication related logs.
+- /var/log/kern : This file stores kernel related events.
+
+### Web Server Logs
+
+It is important to keep an eye on all the requests/responses coming in and out of the webserver for any potential web attack attempt. In Linux, common locations to write all apache related logs are /var/log/apache or /var/log/httpd.
+
 ---
 
 ## 4. Importance of SIEM
