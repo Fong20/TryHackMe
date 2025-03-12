@@ -1,4 +1,4 @@
-# Security Information and Event Management (SIEM) - Notes
+# Introduction to Security Information and Event Management (SIEM)
 
 ## 1. What is SIEM?
 SIEM (Security Information and Event Management) is a tool that:
