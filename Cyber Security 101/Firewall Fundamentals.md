@@ -1,4 +1,4 @@
-# Firewall Basics and Hands-On Implementation
+# Firewall Fundamentals
 
 ## What is a Firewall?
 - A firewall acts as a security guard for digital devices, inspecting incoming and outgoing network traffic.
