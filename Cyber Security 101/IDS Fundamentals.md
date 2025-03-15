@@ -1,4 +1,4 @@
-# **Intrusion Detection Systems (IDS) and Snort IDS**
+# IDS Fundamentals
 
 ## **Overview of IDS**
 - Firewalls protect network boundaries, but IDS is needed to monitor traffic inside the network.
