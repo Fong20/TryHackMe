@@ -1,4 +1,4 @@
-# CyberChef Overview
+# CyberChef: The Basics
 
 ## What is CyberChef?
 CyberChef is a web-based tool that provides various cyber operation tasks such as encoding, decoding, encryption, and data manipulation. It operates on "recipes"—a series of ordered operations.
