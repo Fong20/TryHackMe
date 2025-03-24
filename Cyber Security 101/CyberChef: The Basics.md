@@ -54,7 +54,3 @@ CyberChef consists of four main areas:
 3. **Choose Operations** – Identify relevant operations based on the data.
 4. **Check Output** – Verify if the result matches expectations.
 
-## Practical Exercise Instructions
-1. Download the task files.
-2. Use **Extractors** for the first two questions.
-3. Experiment with CyberChef's input, recipe, and output areas.
