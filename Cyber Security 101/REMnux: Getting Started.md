@@ -1,5 +1,5 @@
 
-# Malware Analysis with REMnux VM
+# REMnux: Getting Started
 
 ## Overview
 The REMnux VM is a Linux distro specialized for malware analysis, featuring tools like Volatility, YARA, Wireshark, oledump, and INetSim. This guide covers analyzing a malicious Excel document, simulating a network environment with INetSim, and memory analysis with Volatility.
