@@ -1,6 +1,5 @@
 
 # Subdomain Enumeration
-===========================
 
 ## Purpose of Subdomain Enumeration:
 - Expands the attack surface.
