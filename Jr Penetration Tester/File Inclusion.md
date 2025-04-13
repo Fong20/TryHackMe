@@ -26,6 +26,7 @@
 | /proc/version                | Kernel version info                            |
 | C:\boot.ini                 | Boot config on Windows                         |
 
+![image](https://github.com/user-attachments/assets/264fcf24-a71b-4be3-a9f2-711e6ccbd925)
 
 ## 🧪 Types of File Inclusion Exploits
 
