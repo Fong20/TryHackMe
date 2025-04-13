@@ -1,4 +1,4 @@
-# File Inclusion Vulnerabilities
+# File Inclusion
 
 ## 🔍 Overview
 - File Inclusion vulnerabilities allow attackers to include files, usually through the web browser.
