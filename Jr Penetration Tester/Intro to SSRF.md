@@ -1,8 +1,8 @@
 
-# SSRF (Server-Side Request Forgery) Notes
+# Intro to SSRF
 
 ## What is SSRF?
-- SSRF allows an attacker to make the web server send a crafted HTTP request to a resource of the attacker's choice.
+- SSRF (Server-Side Request Forgery) allows an attacker to make the web server send a crafted HTTP request to a resource of the attacker's choice.
 - Two types:
   - Regular SSRF: Response returned to attacker.
   - Blind SSRF: No response shown to attacker.
@@ -13,16 +13,27 @@
 - Internal network reachability.
 - Exposure of tokens/credentials.
 
-## Common SSRF Vectors:
-- Full URL in a URL parameter.
-- Hidden form fields.
-- Hostname-only input.
-- Path-only input.
+## Common SSRF Vulnerabilities:
+Potential SSRF vulnerabilities can be spotted in web applications in many different ways. Here is an example of four common places:
+
+### 1. Full URL in a URL parameter.
+![image](https://github.com/user-attachments/assets/73622e2c-61d7-4e31-9b75-778b4865ed2a)
+
+### 2. Hidden field in a form.
+![image](https://github.com/user-attachments/assets/00df005d-fe24-4927-8a55-b9f4168579f7)
+
+### 3. Hostname-only input.
+![image](https://github.com/user-attachments/assets/5628ca7f-4eec-483e-af7f-ecea2674a4d2)
+
+### 4. Path-only input.
+![image](https://github.com/user-attachments/assets/0cef85af-6d9b-490d-8d5d-743923a34a5d)
 
 ## Blind SSRF Detection:
-- Use logging tools like requestbin.com, custom HTTP server, or Burp Collaborator.
+If we are working with blind SSRF where there is no output is reflected back, we will need to use logging tools like requestbin.com, custom HTTP server, or Burp Collaborator to monitor requests.
 
-## SSRF Protections:
+## Identifying and breaking through SSRF Defenses:
+More security-savvy developers aware of the risks of SSRF vulnerabilities may implement checks in their applications to make sure the requested resource meets specific rules. There are usually two approaches to this, either a deny list or an allow list.
+
 ### Deny List:
 - Blocks certain resources (e.g., localhost, 127.0.0.1).
 - Bypass techniques:
