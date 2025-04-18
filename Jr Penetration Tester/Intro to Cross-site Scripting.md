@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/c93c9ed2-a10e-453f-85d9-6f634c17d720)
 # Intro to Cross-site Scripting (XSS)
 **Cross-site Scripting (XSS)** is an **injection attack** where malicious JavaScript is injected into a web application to be executed by other users.
 
