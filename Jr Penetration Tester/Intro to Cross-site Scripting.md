@@ -1,4 +1,4 @@
-# Intro to Cross-site Scripting (XSS)
+![image](https://github.com/user-attachments/assets/17c5cf18-7b47-4060-bfe1-1718d1a7504e)# Intro to Cross-site Scripting (XSS)
 **Cross-site Scripting (XSS)** is an **injection attack** where malicious JavaScript is injected into a web application to be executed by other users.
 
 ## XSS Payload
@@ -101,7 +101,7 @@ Now when you click the enter button, you'll get an alert popup with the string T
 
 ![image](https://github.com/user-attachments/assets/bc14fbfd-8236-402d-838d-a6f408e615c3)
 
-### Example 2
+### Example 2: Escaping input tag
 Like the previous level, you're being asked again to enter your name. This time when clicking enter, your name is being reflected in an input tag instead:
 
 ![image](https://github.com/user-attachments/assets/b1b810de-9c1c-49f8-a1ed-260b27e4ebf9)
@@ -118,25 +118,25 @@ The important part of the payload is the **">** which closes the value parameter
 "><script>alert('THM');</script>
 ```
 
-### Example 3
+### Example 3: Escaping textarea tag
 You're presented with another form asking for your name, and the same as the previous level, your name gets reflected inside an HTML tag, but this time through the textarea tag.
 
 ![image](https://github.com/user-attachments/assets/a561d252-5476-42d6-bf48-980ad2981bc3)
 
 ![image](https://github.com/user-attachments/assets/3a089226-6aa1-4f44-8238-546551764b74)
 
-As a result, we need to escape the textarea tag a little differently from the input one (in Level Two) by using the following payload: 
+As a result, we need to escape the textarea tag a little differently from the input one (in example Two) by using the following payload: 
 
 ```html
 </textarea><script>alert('THM');</script>
 ```
 
-The important part of the above payload is **</textarea>**, which closes the textarea element so the script will run.
+The important part of the above payload is ```</textarea>```, which closes the textarea element so the script will run.
 
 ![image](https://github.com/user-attachments/assets/a79e0c92-41f7-401f-bce0-16873de04dd1)
 
 
-### Example 4
+### Example 4: Escaping Javascript commands
 Entering your name into the form, you'll see it reflected on the page. This level looks similar to example one, but upon inspecting the page source, you'll see your name gets reflected in some JavaScript code.
 
 ![image](https://github.com/user-attachments/assets/5bbf4491-304b-4296-b917-7f4dba14f16f)
@@ -147,23 +147,45 @@ You'll have to escape the existing JavaScript command to run your code; you can 
 ';alert('THM');// 
 ```
 
-The ' closes the field specifying the name, then ; signifies the end of the current command, and the // at the end makes anything after it a comment rather than executable code.
+The ```'``` closes the field specifying the name, then ```;``` signifies the end of the current command, and the ```//``` at the end makes anything after it a comment rather than executable code.
 
 ![image](https://github.com/user-attachments/assets/16674925-e1df-451d-80b1-5e242d8752e7)
 
 Now when you click the enter button, you'll get an alert popup with the string THM.
 
+### Example 5: Bypassing filter
+This example is similar to example one, where the name also gets reflected in the same place. However, if we try the ```<script>alert('THM');</script>``` payload, it won't work. Lets take a look at the page source.
 
+![image](https://github.com/user-attachments/assets/8843a4ea-aa5c-4d69-84bf-53f632210ec5)
 
-### Example 5 (bypass filter)
+It turns out that the word ```script``` gets removed from your payload, due to a filter that strips out any potentially dangerous words.
+
+When a word gets removed from a string, there's a helpful trick to bypass the filter.
+
 ```html
 <sscriptcript>alert('THM');</sscriptcript>
 ```
 
+This is because the filter will only strip out the only the first string found, which is script. As a result, the payload is left with ``` <script>alert('THM');</script> ``` which can be executed.
+
 ### Example 6 (attribute injection)
+Similar to example two, where we had to escape from the value attribute of an input tag, we can try ``` "><script>alert('THM');</script> ``` , but that doesn't seem to work. Let's inspect the page source to see why that doesn't work.
+
+![image](https://github.com/user-attachments/assets/6e7d8570-1936-473a-b340-e4648269e671)
+
+This is becuse the ```<``` and ```>``` characters get filtered out from our payload, preventing us from escaping the IMG tag. To get around the filter, we can take advantage of the additional attributes of the IMG tag, such as the **onload event**. The onload event **executes the code of your choosing once the image specified in the src attribute has loaded onto the web page.**
+
+Let's change our payload as seen below:
+
 ```html
 /images/cat.jpg" onload="alert('THM');
 ```
+
+Upon inspecting the page source, we can now see how the payload works. Now when you click the enter button, you'll get an alert popup with the string THM.
+
+![image](https://github.com/user-attachments/assets/dd55f420-6d0e-478e-a4da-0c7ee8375504)
+
+
 
 ## Polyglot Payload
 An XSS polyglot is a string of text which can escape attributes, tags and bypass filters all in one. The below polyglot could be utilized on all six examples to execute the code and yield the same results.
@@ -180,12 +202,12 @@ jaVasCript:/*-/*`/*\`/*'/*"/**/(/* */onerror=alert('THM') )//%0D%0A%0d%0a//</stY
 
 In the following example, we want to listen on port 9001 so we issue the command nc -l -p 9001. 
 
-- -l option indicates that we want to use Netcat in listen mode
-- -p option is used to specify the port number. In this case, we want to listen on port 9001
-- -n option is used to avoid the resolution of hostnames via DNS and discover any errors
-- -v option runs Netcat in verbose mode.
+- ```-l``` option indicates that we want to use Netcat in listen mode
+- ```-p``` option is used to specify the port number. In this case, we want to listen on port 9001
+- ```-n``` option is used to avoid the resolution of hostnames via DNS and discover any errors
+- ```-v``` option runs Netcat in verbose mode.
 
-Note: The final command becomes nc -n -l -v -p 9001, equivalent to nc -nlvp 9001.
+**Note:** The final command becomes nc -n -l -v -p 9001, equivalent to nc -nlvp 9001.
 
 ```bash
 nc -nlvp 9001
