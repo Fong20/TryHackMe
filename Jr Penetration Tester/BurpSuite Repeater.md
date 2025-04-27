@@ -1,5 +1,5 @@
 
-# Burp Suite Repeater - Advanced Capabilities Notes
+# Burp Suite Repeater
 
 ## Purpose & Functionality
 - **Burp Suite Repeater** is used to **modify and resend intercepted requests**.
