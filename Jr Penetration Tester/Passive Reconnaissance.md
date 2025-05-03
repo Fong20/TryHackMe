@@ -27,6 +27,8 @@ Examples:
 - **Command**: `whois DOMAIN_NAME`
 - **Example**: `whois tryhackme.com`
 
+![image](https://github.com/user-attachments/assets/8284aa90-d5a8-49d5-8863-1ca1cdb7d043)
+
 ### `nslookup` (Name Server Lookup)
 - **Purpose**: Queries DNS servers for various DNS records.
 - **Syntax**: `nslookup -type=QUERY_TYPE DOMAIN_NAME DNS_SERVER`
@@ -39,13 +41,21 @@ Examples:
   - `TXT`: Text records
 - **Examples**:
   - `nslookup -type=A tryhackme.com 1.1.1.1` returns all the IPv4 addresses used by tryhackme.com.
+
+    ![image](https://github.com/user-attachments/assets/cd5514a7-a434-44f6-9c59-72f9ef492124)
+
   - `nslookup -type=MX tryhackme.com` returns email servers and configurations for a particular domain.
+
+    ![image](https://github.com/user-attachments/assets/f347d4d5-e687-43d3-8560-a512a83dfb65)
 
 ### `dig` (Domain Information Groper)
 - **Purpose**: Advanced DNS querying tool which provides more information as compared to nslookup.
 - **Syntax**: `dig @SERVER DOMAIN_NAME RECORD_TYPE`
 - **Examples**:
   - `dig tryhackme.com A`
+
+    ![image](https://github.com/user-attachments/assets/f56b93c7-f183-4ebb-ab43-ad411d4a8bb1)
+
   - `dig @1.1.1.1 tryhackme.com MX`
   - `dig tryhackme.com TXT`
 
