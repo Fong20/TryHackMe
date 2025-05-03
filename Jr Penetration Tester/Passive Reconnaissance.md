@@ -15,7 +15,7 @@ Examples:
 ### Active Reconnaissance
 Requires direct engagement with the target. Due to the invasive nature of active reconnaissance, it is highly legally sensitive.
 
-Examples:
+**Examples:**
 - Connecting to one of the company servers such as HTTP, FTP, and SMTP.
 - Calling the company in an attempt to get information (social engineering).
 - Entering company premises pretending to be a repairman.
@@ -39,42 +39,43 @@ Examples:
   - `MX`: Mail exchange
   - `SOA`: Start of authority
   - `TXT`: Text records
-- **Examples**:
-  - `nslookup -type=A tryhackme.com 1.1.1.1` returns all the IPv4 addresses used by tryhackme.com.
+**Examples**:
+- `nslookup -type=A tryhackme.com 1.1.1.1` returns all the IPv4 addresses used by tryhackme.com.
 
-    ![image](https://github.com/user-attachments/assets/cd5514a7-a434-44f6-9c59-72f9ef492124)
+  ![image](https://github.com/user-attachments/assets/cd5514a7-a434-44f6-9c59-72f9ef492124)
 
-  - `nslookup -type=MX tryhackme.com` returns email servers and configurations for a particular domain.
+- `nslookup -type=MX tryhackme.com` returns email servers and configurations for a particular domain.
 
-    ![image](https://github.com/user-attachments/assets/f347d4d5-e687-43d3-8560-a512a83dfb65)
+  ![image](https://github.com/user-attachments/assets/f347d4d5-e687-43d3-8560-a512a83dfb65)
 
 ### `dig` (Domain Information Groper)
 - **Purpose**: Advanced DNS querying tool which provides more information as compared to nslookup.
 - **Syntax**: `dig @SERVER DOMAIN_NAME RECORD_TYPE`
-- **Examples**:
-  - `dig tryhackme.com A`
 
-    ![image](https://github.com/user-attachments/assets/f56b93c7-f183-4ebb-ab43-ad411d4a8bb1)
+**Examples**:
+- `dig tryhackme.com A`
 
-  - `dig @1.1.1.1 tryhackme.com MX`
-  - `dig tryhackme.com TXT`
+  ![image](https://github.com/user-attachments/assets/f56b93c7-f183-4ebb-ab43-ad411d4a8bb1)
 
-### Online Services
+- `dig @1.1.1.1 tryhackme.com MX`
+- `dig tryhackme.com TXT`
 
-#### DNSDumpster
-- **Purpose**: DNS lookup tools, such as nslookup and dig, cannot find subdomains on their own. As a result, DNSDumpster is used to discover DNS records, subdomains, IPs, and geolocation info.
-- **Features**:
-  - Graphical output
-  - Exportable data
-  - Visualized network maps
+### DNSDumpster
+DNS lookup tools, such as nslookup and dig, cannot find subdomains on their own. As a result, DNSDumpster is used to discover DNS records, subdomains, IPs, and geolocation info.
 
-#### Shodan.io
-- **Purpose**: Search engine for internet-connected devices.
-- **Information Provided**:
-  - IP addresses
-  - Hosting providers
-  - Geo-location
-  - Server type/version
+**Features**:
+- Graphical output
+- Exportable data
+- Visualized network maps
+
+### Shodan.io
+Online Search engine tool for internet-connected devices.
+
+**Features**:
+- IP addresses
+- Hosting providers
+- Geo-location
+- Server type/version
 
 ## Useful Commands Summary
 
