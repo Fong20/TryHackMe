@@ -15,7 +15,7 @@
 ## Benefits of UKC Over Other Frameworks
 | UKC Framework | Other Frameworks |
 |---------------|-------------------|
-| Released in 2017, updated in 2022 | Older (e.g., MITRE ATTACK - 2013) |
+| Released in 2017, updated in 2022 | Older (e.g., MITRE ATT&CK - 2013) |
 | 18 detailed phases | Limited phases |
 | Covers full attack lifecycle | Often limited scope |
 | Allows phase recurrence | Linear phase structure |
