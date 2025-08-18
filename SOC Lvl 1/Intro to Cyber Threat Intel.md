@@ -1,4 +1,4 @@
-# Intro to Cyber Threat Intel 
+# Intro to Cyber Threat Intel (CTI)
 
 ## Role of CTI in SOC
 - SOC L1 analysts are the **first human touchpoint** for alerts.
