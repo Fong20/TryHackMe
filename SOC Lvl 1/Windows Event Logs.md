@@ -1,4 +1,4 @@
-# Windows Event Logs & SIEM - Notes
+# Windows Event Logs 
 
 ## Definition of Event Logs
 - Event logs record system and application events for auditing, troubleshooting, and diagnostics.
