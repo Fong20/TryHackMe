@@ -1,4 +1,4 @@
-# 🧰 Sysinternals Tools — Notes
+# Sysinternals
 
 ## Overview
 - **Sysinternals Suite:** 70+ Windows tools categorized into:
