@@ -1,0 +1,64 @@
+# AI in Security
+
+## Context / Story
+- Organization: The Best Festival Company (TBFC)
+- Situation: Replacing underperforming in-house chatbot "Van Chatty" with a new cyber security AI assistant "Van SolveIT".
+- Goal: Use AI to identify, confirm, and resolve potential vulnerabilities before Christmas season operations.
+
+## Learning Objectives
+1. How AI can act as an assistant across cyber security roles, domains, and tasks.
+2. Using an AI assistant to solve diverse cyber security tasks.
+3. Considerations and risks of deploying AI in cyber security contexts.
+
+## The Boom of AI Assistants
+- AI increasingly embedded in workflows to boost speed by handling tedious/time-consuming tasks.
+- Shift: AI moving from "lazy Google" to integrated productivity tool.
+- Expectation: AI should be used thoughtfully, with human oversight and experience.
+
+## AI Features & Cyber Security Relevance
+- **Processing large amounts of data**: Analyse logs and multi-source telemetry.
+- **Behaviour analysis**: Establish baseline behaviour and flag anomalies.
+- **Generative AI**: Summarise incidents and provide contextual explanations.
+
+## Defensive Security (Blue Team)
+- AI agents speed up detection, investigation, and response.
+- Continuous processing of telemetry (logs, network flows, endpoint signals).
+- Adds context to alerts and integrates into vendor appliances (AI-assisted firewalls, IDS).
+- Automatable responses: isolate devices, block suspicious emails, flag unusual logins in real time.
+
+## Offensive Security (Red Team / Pentesting)
+- AI automates labour-intensive tasks: reconnaissance, OSINT, scanner output analysis, attack surface mapping.
+- Frees pentesters to focus on higher-skill activities requiring human judgement.
+- Caution: Avoid automated actions that might disrupt client systems (race conditions, DoS).
+
+## Software Development
+- AI as a development assistant: idea-bouncing, code suggestions.
+- AI-powered SAST/DAST: scanning code and applications for vulnerabilities.
+- Tension: AI is effective at identifying vulnerabilities but not always at producing secure code.
+
+## Considerations / Risks of AI in Cyber Security
+- **Accuracy & Reliability**: AI outputs are not 100% correct — verify results.
+- **Transparency / Fairness**: Understand decision rationale; avoid opaque black-box actions.
+- **Data Privacy**: Carefully manage training and operational data to maintain confidentiality.
+- **Model Security**: Protect AI models from tampering and data leakage.
+- **Operational Safety**: Prevent AI from performing dangerous automated actions (e.g., causing outages).
+- **Legal / Ownership**: Understand who owns AI outputs and implications for client contracts.
+- **Human-in-the-loop**: Maintain oversight, especially for offensive operations and automated remediation.
+
+## Visual / Design Notes (from original)
+- Decorative elements mentioned: Christmas bauble with AI robot, clipboard with magnifying glass, three gears, red closed "rules" book.
+
+## Actions / Recommendations (implied)
+- Use AI to automate tedious data processing and triage, with human oversight for high-risk decisions.
+- Employ AI for reconnaissance and aggregation, but validate actions before execution on production systems.
+- Integrate AI into SAST/DAST pipelines to improve vulnerability detection cadence.
+- Establish governance: verification processes, model security, data handling policies, and explicit limits on autonomous offensive actions.
+
+## Proof-of-Concept / Code Blocks
+- None present in the provided text.
+
+## Short Summary
+TBFC is trialling "Van SolveIT" to accelerate cyber security tasks across defensive, offensive, and software domains. AI offers major efficiency gains (data processing, behavior analysis, summarisation) but carries risks — accuracy, privacy, safety, and governance are key. Humans must verify AI outputs and retain control over high-risk actions.
+
+---
+Generated notes based on the provided page.
