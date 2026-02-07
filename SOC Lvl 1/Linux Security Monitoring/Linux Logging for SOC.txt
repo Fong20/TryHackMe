@@ -1,0 +1,184 @@
+# Linux Logging for SOC
+
+## Overview
+- Linux widely used in servers, cloud, containers → SOC analysts must investigate Linux alerts.
+- Logs are mostly **plain text**, commonly under `/var/log`.
+- Focus on **server (no GUI)** distributions: Debian, Ubuntu, CentOS, RHEL.
+
+---
+
+## Working With Logs
+- Key directory: `/var/log`
+- Logs are unstructured (no event IDs like Windows).
+- Example aggregate log:
+  - `/var/log/syslog` (or `/var/log/messages` on some distros)
+
+### Useful Commands
+```bash
+cat /var/log/syslog | head
+cat /var/log/syslog | grep CRON
+grep -R -E "auth|login|session" /var/log
+```
+
+### Caveats
+- Log format, verbosity, and locations vary by distro.
+- Some logs may not exist or look different.
+
+---
+
+## Authentication Logs
+- Primary file:
+  - `/var/log/auth.log`
+  - RHEL-based: `/var/log/secure`
+- Contains:
+  - Logins/logouts
+  - SSH events
+  - sudo / su usage
+  - User management
+
+### Login / Logout
+```bash
+grep -E 'session opened|session closed' /var/log/auth.log
+```
+
+Fields to note:
+- User, UID
+- Service (`login`, `sshd`, `cron`, `sudo`)
+- Local vs remote access
+
+### SSH Events
+```bash
+grep "sshd" /var/log/auth.log | grep -E 'Accepted|Failed'
+```
+- Shows success/failure, auth method, user, source IP, port.
+
+### User Management
+```bash
+grep -E '(passwd|useradd|usermod|userdel)\[' /var/log/auth.log
+```
+- Track password changes, user creation/deletion, privilege escalation.
+
+### Sudo Commands
+```bash
+grep 'COMMAND=' /var/log/auth.log
+```
+- Useful to identify malicious or suspicious admin actions.
+
+---
+
+## Generic System Logs
+Common files:
+- `/var/log/kern.log` – kernel messages
+- `/var/log/syslog` or `/var/log/messages` – aggregated events
+- `/var/log/dpkg.log`, `/var/log/apt/` – Debian package installs
+- `/var/log/yum.log`, `/var/log/dnf.log` – RHEL package installs
+
+⚠ Often noisy, more useful in DFIR than daily SOC.
+
+---
+
+## App-Specific Logs
+- Depend on application (web, DB, mail, containers).
+- Example: Nginx access logs
+```bash
+/var/log/nginx/access.log
+```
+- Shows: IP, timestamp, HTTP method, path, status code.
+
+---
+
+## Bash History
+- File: `~/.bash_history`
+- Command: `history`
+- Records interactive commands only.
+
+### Limitations
+- Leading space avoids logging.
+- Scripts hide commands.
+- Other shells (`sh`) may not log.
+- Not reliable for SOC investigations.
+
+---
+
+## Runtime Monitoring (Critical Gap)
+Default Linux **does not log**:
+- Process creation
+- File changes
+- Network activity
+
+→ Requires additional tools.
+
+---
+
+## System Calls
+- All OS actions use system calls (e.g., `execve`).
+- Nearly impossible to bypass.
+- Foundation for:
+  - EDR
+  - Auditd
+  - Sysmon
+  - Falco
+
+---
+
+## Auditd (Audit Daemon)
+- Built-in Linux runtime monitoring.
+- Rules stored in:
+```bash
+/etc/audit/rules.d/
+```
+
+### Viewing Logs
+- Raw logs:
+```bash
+/var/log/audit/audit.log
+```
+- Preferred tool:
+```bash
+ausearch -i
+```
+
+### Process Execution Example
+```bash
+ausearch -i -k proc_wget
+```
+
+Important fields:
+- `pid`, `ppid`
+- `auid` – original logged-in user
+- `uid` – user executing command
+- `tty`
+- `exe`
+- `key` – rule identifier
+
+### File Change Example
+```bash
+ausearch -i -k file_sshconf
+```
+- Detects edits to critical files (e.g. `/etc/ssh/sshd_config`).
+
+---
+
+## Auditd Limitations & Alternatives
+Auditd:
+- Very verbose
+- Hard to parse in SIEM
+
+Alternatives:
+- **Sysmon for Linux** – structured XML logs
+- **Falco** – container-focused
+- **Osquery** – flexible querying
+- **EDR solutions**
+
+All rely on **system call monitoring**.
+
+---
+
+## Key Takeaways
+- Linux logs are chaotic but valuable.
+- Logs usually stored in `/var/log`.
+- Top SOC sources:
+  1. `auth.log`
+  2. App-specific logs
+  3. Runtime logs (auditd / EDR)
+- Bash history is unreliable → prefer auditd or EDR.

